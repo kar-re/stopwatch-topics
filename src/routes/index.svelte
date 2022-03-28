@@ -1,2 +1,11 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script>
+  import Header from '../components/Header.svelte';
+  import {pref} from '../stores';
+  import TimerElement from '../components/TimerElement.svelte'
+import { get } from 'svelte/store';
+</script>
+<!-- <svelte:html class:dark={true}/> -->
+    <TimerElement/>
+  <!-- Page sections  -->
+    <!-- <HeroHome /> -->
+
