@@ -1,40 +1,11 @@
-# create-svelte
+# Stopwatch topics
+Stopwatch topics is an easy way of tracking what you're spending your time on. 
+It is powered by SvelteKit and was a way for me to learn a bit more about Svelte.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+You can find it live on (https://stopwatch-topics.pages.dev/)[https://stopwatch-topics.pages.dev/]. 
 
-## Creating a project
+## Background
+I've tried numerous pomodoro apps but they never kind of worked for me. One thing that did tho was visualizing what I'm currently spending my time on, and kind of guilt tripping me into doing something more productive. A pause in a pomodoro session quickly spiraled into two hours, while stopwatch-topics shows it to you.
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
-```
-
-> Note: the `@next` is temporary
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## Reflections
+Svelte is really nice to work with. Cloudflare pages is also painless.
