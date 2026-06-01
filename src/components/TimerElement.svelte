@@ -7,36 +7,45 @@
   let taskList;
   let lapseLocal = 0;
   let previous = 0;
+  let lastValue = 0;
   let unsubscribe;
-  $: renderTime = ['00', '00', '00'];
+  let renderTime = ['00', '00', '00'];
 
   function startTimer() {
+    // guard against stacking subscriptions on repeated Start clicks —
+    // otherwise Stop only releases the latest one and the timer never stops
+    if (unsubscribe) return;
+    lastValue = 0;
     unsubscribe = time.subscribe(value => {
-            // add the previous value to the current number of milliseconds
-            
+            // `value` is wall-clock ms since this run started; derive the real
+            // elapsed delta since the last tick so throttled intervals (backgrounded
+            // tab, screen off, busy CPU) still account for the time that actually passed
+            const delta = value - lastValue;
+            lastValue = value;
+            // add the previous runs' total to the current run's elapsed time
             lapseLocal = value + previous;
-            // console.log(lapse);
-            lapse.set(value);
             renderTime = convertHMS(lapseLocal);
+            if (delta > 0) taskList?.addTimeToSelected(delta);
         });
   }
   function stopTimer() {
     previous = lapseLocal;
+    lapse.set(lapseLocal); // persist the total once, instead of on every tick
     terminate();
   }
   function terminate() {
     if (unsubscribe) {
             unsubscribe();
             unsubscribe = null;
-        } 
+        }
   }
   function resetTimer() {
 		terminate();
 		lapseLocal = 0;
     previous = 0;
-		hour = 0;
-		min = 0;
-		sec = 0;
+		lastValue = 0;
+		renderTime = ['00', '00', '00']; // hour/min/sec follow this reactively
+		taskList?.resetTimes();
   }
   
   $: hour = renderTime[0]

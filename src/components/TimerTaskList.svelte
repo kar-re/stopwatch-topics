@@ -1,27 +1,29 @@
 <script>
 import TimerTask from './TimerTask.svelte';
-import { lapse } from '../stores';
 let tasks = [
-{name: 'Hållbarhet', time: 0}, 
-{name: 'Ericsson', time: 0}, 
-{name: 'Interaktionsdesign', time: 0}, 
+{name: 'Hållbarhet', time: 0},
+{name: 'Ericsson', time: 0},
+{name: 'Interaktionsdesign', time: 0},
 {name: 'Paus', time: 0}
-]; 
+];
 let selected;
-// tasks[0].time = $lapse;
-
-
 
 export function addNewTask() {
   tasks = [...tasks, {name: 'New task', time: 0}];
 }
 
-function selectTask(task) {
-  // task.time += $lapse;
-  console.log('Selected something');
-  console.log(tasks);
-  selected = task;
+// called on every tick with the real elapsed ms since the last tick
+export function addTimeToSelected(delta) {
+  if (!selected) return;
+  selected.time += delta;
+  tasks = tasks; // trigger Svelte reactivity after the in-place mutation
 }
+
+export function resetTimes() {
+  tasks = tasks.map((task) => ({ ...task, time: 0 }));
+  selected = null;
+}
+
 export function removeTask() {
   tasks = tasks.filter((obj) => !(obj === selected));
 }
