@@ -1,6 +1,9 @@
 {
   "name": "stopwatch-topics",
   "version": "0.0.1",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
